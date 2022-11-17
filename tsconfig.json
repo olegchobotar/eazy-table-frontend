@@ -2,6 +2,10 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+    },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */

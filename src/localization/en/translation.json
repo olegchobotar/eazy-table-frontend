@@ -1,0 +1,6 @@
+{
+  "auth:username": "Username",
+  "auth:email": "Email",
+  "auth:password": "Password",
+  "auth:signUp": "Sign Up"
+}
