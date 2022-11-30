@@ -1,5 +1,6 @@
 import React from 'react';
 import * as eva from '@eva-design/eva';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { store } from '~/store/store';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
@@ -16,13 +17,15 @@ export default () => {
   };
 
   return (
-    <Provider store={store}>
-      <IconRegistry icons={EvaIconsPack} />
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ApplicationProvider {...eva} theme={eva[theme]}>
-          <AppNavigator />
-        </ApplicationProvider>
-      </ThemeContext.Provider>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <IconRegistry icons={EvaIconsPack} />
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <ApplicationProvider {...eva} theme={eva[theme]}>
+            <AppNavigator />
+          </ApplicationProvider>
+        </ThemeContext.Provider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };

@@ -5,19 +5,21 @@ import { Tags } from '~/components/molecules/Tags';
 import type { Restaurant } from '~/types';
 import { TimeSlots } from '~/components/molecules/TimeSlots';
 
+export interface CardInfoProps {
+  item: Restaurant;
+}
+
 interface Props {
-  cardInfo: {
-    item: Restaurant;
-  };
+  cardInfo: CardInfoProps;
+  onPress: (id: string) => void;
 }
 
 const RestaurantCard = (props: Props) => {
-  const { cardInfo } = props;
-  console.log(cardInfo);
+  const { cardInfo, onPress } = props;
 
   const renderItemHeader = (
     headerProps: ViewProps | undefined,
-    info: Props['cardInfo'],
+    info: CardInfoProps,
   ) => {
     return (
       <View style={styles.cardHeader}>
@@ -41,8 +43,13 @@ const RestaurantCard = (props: Props) => {
     );
   };
 
+  const handleCardPress = () => {
+    onPress(cardInfo.item.id);
+  };
+
   return (
     <Card
+      onPress={handleCardPress}
       style={styles.item}
       status="basic"
       header={(headerProps) => renderItemHeader(headerProps, cardInfo)}>
@@ -61,6 +68,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   image: {
+    borderRadius: 10,
     marginBottom: 10,
     backgroundColor: 'silver',
     resizeMode: 'cover',

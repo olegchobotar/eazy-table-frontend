@@ -3,22 +3,29 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   HomeScreen,
-  DetailsScreen,
   SignInScreen,
   SignUpScreen,
   ForgotPasswordScreen,
+  RestaurantScreen,
 } from '~/components/screens';
 import { HomeScreen as Home } from '~/components/screens/Home2';
 import { useDispatch } from 'react-redux';
 import { updateCurrentUser } from '~/store/slices/application';
 import auth from '@react-native-firebase/auth';
+import { RootStackParamList } from '~/types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const HomeNavigator = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Details" component={DetailsScreen} />
+    <Stack.Screen
+      name="Restaurant"
+      component={RestaurantScreen}
+      options={{
+        headerShown: true,
+        title: 'Restaurant Reservation',
+      }}/>
 
     <Stack.Group>
       <Stack.Screen name="SignIn" component={SignInScreen} />
