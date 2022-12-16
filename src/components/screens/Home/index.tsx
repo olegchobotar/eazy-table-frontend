@@ -27,15 +27,16 @@ const HomeScreen = (props: Props) => {
     <RestaurantCard cardInfo={info} onPress={handleCardPress} />
   );
 
-  const handleSearch = () => {
-
-  };
+  const handleSearch = () => {};
 
   return (
     <Layout style={styles.container}>
       <View style={styles.searchContainer}>
-        <Input style={styles.searchInput} onChange={setSearch} />
-        <Button style={styles.searchButton}>
+        <Button status="basic" style={styles.filterButton} onPress={handleSearch}>
+          <Ionicons name="menu" size={32} />
+        </Button>
+        <Input style={styles.searchInput} onChangeText={setSearch} />
+        <Button style={styles.searchButton} onPress={handleSearch}>
           <Ionicons name="search-outline" size={32} />
         </Button>
       </View>
@@ -142,6 +143,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     flex: 1,
+  },
+  filterButton: {
   },
   contentContainer: {
   },

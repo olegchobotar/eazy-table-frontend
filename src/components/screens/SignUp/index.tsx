@@ -96,6 +96,7 @@ const SignUp = (props): React.ReactElement => {
             style={styles.formInput}
             autoCapitalize="none"
             placeholder="Email"
+            status="danger"
             accessoryRight={EmailIcon}
             value={email}
             onChangeText={setEmail}

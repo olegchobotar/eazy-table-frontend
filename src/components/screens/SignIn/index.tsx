@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
-import { Button, Input, Text, Icon } from '@ui-kitten/components';
-import { ImageOverlay } from './extra/image-overlay.component';
+import { Button, Input, Text, Icon, Layout } from '@ui-kitten/components';
 import {
   FacebookIcon,
   GoogleIcon,
@@ -9,16 +8,18 @@ import {
   TwitterIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
+import { loginUser } from '~/store/slices/application';
+import { connect } from 'react-redux';
 
 // @ts-ignore
-export default ({ navigation }): React.ReactElement => {
-
+const SignIn = (props): React.ReactElement => {
+  const { navigation } = props;
   const [email, setEmail] = React.useState<string>();
   const [password, setPassword] = React.useState<string>();
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.goBack();
+    props.loginUser({ email, password });
   };
 
   const onSignUpButtonPress = (): void => {
@@ -40,34 +41,30 @@ export default ({ navigation }): React.ReactElement => {
   );
 
   return (
-    <KeyboardAvoidingView>
-      <ImageOverlay
-        style={styles.container}
-        source={require('./assets/image-background.jpg')}>
+    <Layout style={{ flex: 1 }}>
+      <KeyboardAvoidingView>
         <View style={styles.headerContainer}>
           <Text
-            category='h1'
-            status='control'>
+            category='h1'>
             Hello
           </Text>
           <Text
             style={styles.signInLabel}
             category='s1'
-            status='control'>
+          >
             Sign in to your account
           </Text>
         </View>
         <View style={styles.formContainer}>
           <Input
-            status='control'
             placeholder='Email'
             accessoryLeft={PersonIcon}
             value={email}
+            status="danger"
             onChangeText={setEmail}
           />
           <Input
             style={styles.passwordInput}
-            status='control'
             placeholder='Password'
             accessoryRight={renderPasswordIcon}
             value={password}
@@ -78,7 +75,6 @@ export default ({ navigation }): React.ReactElement => {
             <Button
               style={styles.forgotPasswordButton}
               appearance='ghost'
-              status='control'
               onPress={onForgotPasswordButtonPress}>
               Forgot your password?
             </Button>
@@ -93,25 +89,22 @@ export default ({ navigation }): React.ReactElement => {
         <View style={styles.socialAuthContainer}>
           <Text
             style={styles.socialAuthHintText}
-            status='control'>
+            >
             Or Sign In using Social Media
           </Text>
           <View style={styles.socialAuthButtonsContainer}>
             <Button
               appearance='ghost'
-              status='control'
               size='giant'
               accessoryLeft={GoogleIcon}
             />
             <Button
               appearance='ghost'
-              status='control'
               size='giant'
               accessoryLeft={FacebookIcon}
             />
             <Button
               appearance='ghost'
-              status='control'
               size='giant'
               accessoryLeft={TwitterIcon}
             />
@@ -120,12 +113,11 @@ export default ({ navigation }): React.ReactElement => {
         <Button
           style={styles.signUpButton}
           appearance='ghost'
-          status='control'
           onPress={onSignUpButtonPress}>
           Don't have an account? Sign Up
         </Button>
-      </ImageOverlay>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </Layout>
   );
 };
 
@@ -174,3 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
+export default connect(null, { loginUser })(SignIn);

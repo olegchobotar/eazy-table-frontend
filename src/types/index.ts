@@ -27,6 +27,7 @@ export interface Restaurant {
 export type RootStackParamList = {
   Home: undefined;
   Restaurant: { restaurantId: string };
+  AddRestaurant: undefined;
   SignIn: undefined;
   SignUp: undefined;
   ForgotPassword: undefined;

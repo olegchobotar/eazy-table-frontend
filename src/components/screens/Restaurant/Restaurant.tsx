@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { Button, Layout, Text } from '@ui-kitten/components';
+import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { NativeStackScreenProps } from 'react-native-screens/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,7 @@ interface Props
 const RestaurantComponent: React.FC<Props> = (props: Props) => {
   const { restaurant } = props;
   const [date, setDate] = useState<Date>(new Date());
+  const [comment, setComment] = useState<string>('');
   const [guestsNumber, setGuestsNumber] = useState<number>(1);
 
   const [preGuestsNumber, setPreGuestsNumber] = useState<number>(guestsNumber);
@@ -35,6 +36,8 @@ const RestaurantComponent: React.FC<Props> = (props: Props) => {
     setDate(preDate);
     bottomSheetModalRef.current?.close();
   };
+
+  const handleReservation = () => {};
 
   return (
     <Layout style={styles.container}>
@@ -61,6 +64,10 @@ const RestaurantComponent: React.FC<Props> = (props: Props) => {
           setReservationDateTime={setDate}
           onPress={() => bottomSheetModalRef.current?.expand()}
         />
+        <Text style={styles.comment}>{t('restaurant.commentTitle')}</Text>
+        <Input style={styles.commentInput} onChangeText={setComment} />
+        <Button onPress={handleReservation}>{t('restaurant.reserve')}</Button>
+
       </View>
       <BottomSheet
         enablePanDownToClose
@@ -153,6 +160,12 @@ const styles = StyleSheet.create({
   },
   timeDate: {
     marginTop: 10,
+  },
+  comment: {
+    fontWeight: 'bold',
+  },
+  commentInput: {
+    marginBottom: 15,
   },
 });
 

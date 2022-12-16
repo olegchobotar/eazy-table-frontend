@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 
@@ -14,7 +15,7 @@ const initialState: ApplicationSliceState = {
 };
 
 export const authenticateUser = createAsyncThunk(
-  'users/login',
+  'users/signUp',
   async ({ email, password }) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
@@ -23,17 +24,48 @@ export const authenticateUser = createAsyncThunk(
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
+          ToastAndroid.show(
+            'That email address is already in use!',
+            ToastAndroid.TOP,
+          );
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          ToastAndroid.show('That email address is invalid!', ToastAndroid.TOP);
         }
-
-        console.error(error);
       });
   },
 );
+
+export const loginUser = createAsyncThunk(
+  'users/login',
+  async ({ email, password }) => {
+    console.log('')
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          ToastAndroid.show(
+            'That email address is already in use!',
+            ToastAndroid.TOP,
+          );
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          ToastAndroid.show('That email address is invalid!', ToastAndroid.TOP);
+        }
+        if (error.code === 'auth/user-not-found') {
+          ToastAndroid.show('User with this email has not found', ToastAndroid.TOP);
+        }
+
+      });
+  },
+);
+
+
 
 export const signOutUser = createAsyncThunk('users/signOut', async () => {
   auth()
@@ -57,36 +89,6 @@ export const applicationSlice = createSlice({
     },
   },
 });
-
-// const tutorialSlice = createSlice({
-//   name: "tutorial",
-//   initialState,
-//   extraReducers: {
-//     [createTutorial.fulfilled]: (state, action) => {
-//       state.push(action.payload);
-//     },
-//     [retrieveTutorials.fulfilled]: (state, action) => {
-//       return [...action.payload];
-//     },
-//     [updateTutorial.fulfilled]: (state, action) => {
-//       const index = state.findIndex(tutorial => tutorial.id === action.payload.id);
-//       state[index] = {
-//         ...state[index],
-//         ...action.payload,
-//       };
-//     },
-//     [deleteTutorial.fulfilled]: (state, action) => {
-//       let index = state.findIndex(({ id }) => id === action.payload.id);
-//       state.splice(index, 1);
-//     },
-//     [deleteAllTutorials.fulfilled]: (state, action) => {
-//       return [];
-//     },
-//     [findTutorialsByTitle.fulfilled]: (state, action) => {
-//       return [...action.payload];
-//     },
-//   },
-// });
 
 export const { toggleTheme, updateCurrentUser } = applicationSlice.actions;
 
