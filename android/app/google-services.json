@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1020326413993",
+    "project_id": "eazytable-b6241",
+    "storage_bucket": "eazytable-b6241.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020326413993:android:a06ce89ead4694bd70cbb8",
+        "android_client_info": {
+          "package_name": "com.eazytable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020326413993-8fnfbpuqejtoabk93upoqc03iekfakvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUpJs45Uu4A8B7qaaozXZPfXYzR5eZ0DU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020326413993-8fnfbpuqejtoabk93upoqc03iekfakvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

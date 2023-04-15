@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux';
 import {
   Button,
   CheckBox,
@@ -20,10 +21,11 @@ import {
   TwitterIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import { authenticateUser } from '~/store/slices/application';
 
 // @ts-ignore
-export default ({ navigation }): React.ReactElement => {
+const SignUp = (props): React.ReactElement => {
   const [userName, setUserName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
   const [password, setPassword] = React.useState<string>();
@@ -31,14 +33,17 @@ export default ({ navigation }): React.ReactElement => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
   const styles = useStyleSheet(themedStyles);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const onSignUpButtonPress = (): void => {
-    navigation && navigation.goBack();
+    if (email && password) {
+      props.authenticateUser({ email, password });
+    }
+    // navigation && navigation.goBack();
   };
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.navigate('SignIn');
+    props.navigation && props.navigation.navigate('SignIn');
   };
 
   const onPasswordIconPress = (): void => {
@@ -46,20 +51,27 @@ export default ({ navigation }): React.ReactElement => {
   };
 
   const renderPhotoButton = (): React.ReactElement => (
-    <Button style={styles.editAvatarButton} size='small' accessoryRight={PlusIcon} />
+    <Button
+      style={styles.editAvatarButton}
+      size="small"
+      accessoryRight={PlusIcon}
+    />
   );
 
-  const renderPasswordIcon = (props): ReactElement => (
+  const renderPasswordIcon = (iconProps): ReactElement => (
     <TouchableWithoutFeedback onPress={onPasswordIconPress}>
-      <Icon {...props} name={passwordVisible ? 'eye-off' : 'eye'} />
+      <Icon {...iconProps} name={passwordVisible ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
   );
 
-  const renderCheckboxLabel = React.useCallback(evaProps => (
-    <Text {...evaProps} style={styles.termsCheckBoxText}>
-      I read and agree to Terms & Conditions
-    </Text>
-  ), []);
+  const renderCheckboxLabel = React.useCallback(
+    (evaProps) => (
+      <Text {...evaProps} style={styles.termsCheckBoxText}>
+        I read and agree to Terms & Conditions
+      </Text>
+    ),
+    [],
+  );
 
   return (
     <Layout style={styles.container}>
@@ -67,32 +79,33 @@ export default ({ navigation }): React.ReactElement => {
         <View style={styles.headerContainer}>
           <ProfileAvatar
             style={styles.profileAvatar}
-            resizeMode='center'
+            resizeMode="center"
             source={require('../../../assets/images/image-person.png')}
             editButton={renderPhotoButton}
           />
         </View>
         <View style={styles.formContainer}>
           <Input
-            autoCapitalize='none'
-            placeholder='User Name'
+            autoCapitalize="none"
+            placeholder="User Name"
             accessoryRight={PersonIcon}
             value={userName}
             onChangeText={setUserName}
           />
           <Input
             style={styles.formInput}
-            autoCapitalize='none'
-            placeholder='Email'
+            autoCapitalize="none"
+            placeholder="Email"
+            status="danger"
             accessoryRight={EmailIcon}
             value={email}
             onChangeText={setEmail}
           />
           <Input
             style={styles.formInput}
-            autoCapitalize='none'
+            autoCapitalize="none"
             secureTextEntry={!passwordVisible}
-            placeholder='Password'
+            placeholder="Password"
             accessoryRight={renderPasswordIcon}
             value={password}
             onChangeText={setPassword}
@@ -106,9 +119,8 @@ export default ({ navigation }): React.ReactElement => {
         </View>
         <Button
           style={styles.signUpButton}
-          size='giant'
-          onPress={onSignUpButtonPress}
-        >
+          size="giant"
+          onPress={onSignUpButtonPress}>
           SIGN UP
         </Button>
         <View style={styles.socialAuthContainer}>
@@ -117,27 +129,26 @@ export default ({ navigation }): React.ReactElement => {
           </Text>
           <View style={styles.socialAuthButtonsContainer}>
             <Button
-              appearance='ghost'
-              size='giant'
+              appearance="ghost"
+              size="giant"
               accessoryLeft={FacebookIcon}
             />
             <Button
-              appearance='ghost'
-              size='giant'
+              appearance="ghost"
+              size="giant"
               accessoryLeft={GoogleIcon}
             />
             <Button
-              appearance='ghost'
-              size='giant'
+              appearance="ghost"
+              size="giant"
               accessoryLeft={TwitterIcon}
             />
           </View>
         </View>
         <Button
           style={styles.signInButton}
-          appearance='ghost'
-          onPress={onSignInButtonPress}
-        >
+          appearance="ghost"
+          onPress={onSignInButtonPress}>
           Already have account? Sign In
         </Button>
       </KeyboardAvoidingView>
@@ -201,3 +212,5 @@ const themedStyles = StyleService.create({
     marginBottom: 16,
   },
 });
+
+export default connect(null, { authenticateUser })(SignUp);

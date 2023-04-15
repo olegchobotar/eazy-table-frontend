@@ -1,6 +1,27 @@
 {
+  "common.confirm": "Confirm",
+  "common.search": "Search",
+
   "auth:username": "Username",
   "auth:email": "Email",
   "auth:password": "Password",
-  "auth:signUp": "Sign Up"
+  "auth:signUp": "Sign Up",
+
+  "restaurant.establishment": "Establishment",
+  "restaurant.fillInTitle": "Fill in the booking details",
+  "restaurant.commentTitle": "Leave a comment",
+  "restaurant.reserve": "Reserve",
+  "restaurant.bottomModal.numberOfGuests": "Number of guests",
+  "restaurant.bottomModal.bookingTimeDate": "Time and date of booking",
+
+  "addRestaurant.textPlaceholder": "Enter value",
+  "addRestaurant.namePlaceholder": "Establishment name",
+  "addRestaurant.description": "Description",
+  "addRestaurant.tags": "Specify tags",
+  "addRestaurant.workingHours": "Working hours",
+  "addRestaurant.tablesScheme": "Tables scheme (drag the items below to the canvas)",
+  "addRestaurant.createButton": "Create",
+
+  "addRestaurant.openingTime": "Open at",
+  "addRestaurant.closeTime": "Close at"
 }
