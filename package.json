@@ -1,7 +1,6 @@
 {
   "name": "EazyTable",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -19,6 +18,7 @@
     "react": "18.1.0",
     "react-i18next": "^12.0.0",
     "react-native": "0.70.4",
+    "minti_fulkerson": "0.1.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "^2.12.0",
